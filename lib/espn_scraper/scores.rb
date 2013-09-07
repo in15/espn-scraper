@@ -166,11 +166,11 @@ module ESPN
     
       def home_away_parse(doc, date)
         doc.css('.mod-scorebox').map do |game|
-          # game.css('.game-status text()').text
+          game.css('.game-status text()').text
           score = { game_date: date }
           score[:home_team] = parse_data_name_from game.at_css('.team.home .team-name')
           score[:away_team] = parse_data_name_from game.at_css('.team.away .team-name')
-          score[:status] = game.css('.game-status text()').text
+          score[:status] = game.at_css('.game-status text()').text
           score[:home_score] = game.at_css('.team.home .finalScore').content.to_i
           score[:away_score] = game.at_css('.team.away .finalScore').content.to_i
           score      
