@@ -151,11 +151,12 @@ module ESPN
         end
         game_scores = []
         doc.css('.gameDay-Container').each_with_index do |container, i|
-          container.css(".mod-#{league}-scorebox.final-state").each do |game|
+          container.css(".mod-#{league}-scorebox").each do |game|
             game_info = {}
             game_info[:game_date]  = game_dates[i]
             game_info[:home_team]  = self.parse_data_name_from game.at_css('.home .team-name')
             game_info[:away_team]  = self.parse_data_name_from game.at_css('.visitor .team-name')
+            game_info[:status] = game.at_css('.game-status text()').text
             game_info[:home_score] = game.at_css('.home .score .final').content.to_i
             game_info[:away_score] = game.at_css('.visitor .score .final').content.to_i
             game_scores.push game_info
@@ -166,7 +167,6 @@ module ESPN
     
       def home_away_parse(doc, date)
         doc.css('.mod-scorebox').map do |game|
-          game.css('.game-status text()').text
           score = { game_date: date }
           score[:home_team] = parse_data_name_from game.at_css('.team.home .team-name')
           score[:away_team] = parse_data_name_from game.at_css('.team.away .team-name')
