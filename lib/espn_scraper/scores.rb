@@ -153,7 +153,7 @@ module ESPN
         doc.css('.gameDay-Container').each_with_index do |container, i|
           container.css(".mod-#{league}-scorebox").each do |game|
             game_info = {}
-            # game_info[:game_date]  = game_dates[i]
+            game_info[:game_date]  = game_dates[i]
             game_info[:home_team]  = self.parse_data_name_from game.at_css('.home .team-name')
             game_info[:away_team]  = self.parse_data_name_from game.at_css('.visitor .team-name')
             game_info[:status] = game.at_css('.game-status text()').text
@@ -179,7 +179,7 @@ module ESPN
     
       def winner_loser_parse(doc, date)
         doc.css('.mod-scorebox-final').map do |game|
-          game_info = { game_date: date }
+          # game_info = { game_date: date }
           teams = game.css('td.team-name:not([colspan])').map { |td| parse_data_name_from(td) }
           game_info[:away_team], game_info[:home_team] = teams
           scores = game.css('.team-score').map { |td| td.at_css('span').content.to_i }
