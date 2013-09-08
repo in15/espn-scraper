@@ -153,7 +153,7 @@ module ESPN
         doc.css('.gameDay-Container').each_with_index do |container, i|
           container.css(".mod-#{league}-scorebox").each do |game|
             game_info = {}
-            game_info[:game_date]  = game_dates[i]
+            # game_info[:game_date]  = game_dates[i]
             game_info[:home_team]  = self.parse_data_name_from game.at_css('.home .team-name')
             game_info[:away_team]  = self.parse_data_name_from game.at_css('.visitor .team-name')
             game_info[:status] = game.at_css('.game-status text()').text
